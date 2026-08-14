@@ -26,7 +26,7 @@ verify_model, cnn_model, resnet_model = load_models()
 
 # FUNGSI PREPROCESS UNTUK VERIFIKASI (Xception - 224x224)
 def preprocess_verification(image_data):
-    img = image_data.resize((224, 224))
+    img = image_data.resize((256, 256))
     img_array = np.array(img, dtype=np.float32)
     img_array = xception_preprocess(img_array)
     img_array = np.expand_dims(img_array, axis=0)
