@@ -81,7 +81,7 @@ if uploaded_file is not None:
     st.image(
         image,
         caption="Gambar yang Diupload",
-        use_column_width=True
+        width="stretch"
     )
 
     # STEP 1: Verifikasi Gambar
