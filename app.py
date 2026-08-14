@@ -24,16 +24,16 @@ def load_models():
 verify_model, cnn_model, resnet_model = load_models()
 
 
-# FUNGSI PREPROCESS UNTUK VERIFIKASI
+# FUNGSI PREPROCESS UNTUK VERIFIKASI (Xception - 224x224)
 def preprocess_verification(image_data):
-    img = image_data.resize((256, 256))
+    img = image_data.resize((224, 224))
     img_array = np.array(img, dtype=np.float32)
     img_array = xception_preprocess(img_array)
     img_array = np.expand_dims(img_array, axis=0)
     return img_array
 
 
-# FUNGSI PREPROCESS UNTUK DIAGNOSIS
+# FUNGSI PREPROCESS UNTUK DIAGNOSIS (256x256)
 def preprocess_diagnosis(image_data):
     img = image_data.resize((256, 256))
     img_array = np.array(img) / 255.0
@@ -81,7 +81,7 @@ if uploaded_file is not None:
     st.image(
         image,
         caption="Gambar yang Diupload",
-        width="stretch"
+        use_column_width=True
     )
 
     # STEP 1: Verifikasi Gambar
@@ -92,7 +92,7 @@ if uploaded_file is not None:
         # Tolak Gambar jika bukan CT Scan Ginjal
         st.error("Gambar yang diupload bukan CT Scan Ginjal")
     else:
-        st.success(f"Verifikasi Berhasil: Gambar terdeteksi sebagai CT Scan Ginjal (Keyakinan: {verify_conf:.2%})")
+        st.success(f"Verifikasi Berhasil: Gambar terdeteksi sebagai CT Scan Ginjal")
         st.markdown("---")
 
         # STEP 2: CNN & ResNet50 Diagnosis
